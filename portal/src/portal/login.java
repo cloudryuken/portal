@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class login extends JFrame {
 
@@ -22,7 +23,7 @@ public class login extends JFrame {
 	private static final long serialVersionUID = -18561447882935195L;
 	private JPanel contentPane;
 	private JTextField userfield;
-	private JTextField passfield;
+	private JPasswordField passfield;
 
 	/**
 	 * Launch the application.
@@ -45,31 +46,30 @@ public class login extends JFrame {
 	 */
 	public login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 300);
+		setBounds(100, 100, 230, 180);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Username:");
-		lblNewLabel.setBounds(61, 89, 66, 31);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 31, 80, 25);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassword.setBounds(61, 131, 66, 14);
+		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPassword.setBounds(10, 62, 80, 25);
 		contentPane.add(lblPassword);
 		
 		userfield = new JTextField();
-		userfield.setBounds(137, 94, 86, 20);
+		userfield.setBounds(100, 33, 86, 20);
 		contentPane.add(userfield);
 		userfield.setColumns(10);
 		
-		passfield = new JTextField();
-		passfield.setBounds(137, 128, 86, 20);
+		passfield = new JPasswordField();
+		passfield.setBounds(100, 64, 86, 20);
 		contentPane.add(passfield);
-		passfield.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
@@ -81,7 +81,7 @@ public class login extends JFrame {
 			            Statement stmt = con.createStatement();
 			            ResultSet rs = stmt.executeQuery(sql);
 			            String user = userfield.getText();
-			            String pwd = new String(passfield.getText());
+			            String pwd = new String(passfield.getPassword());
 			            while (rs.next()) {
 			                String uname = rs.getString("username");
 			                String password = rs.getString("password");
@@ -101,7 +101,8 @@ public class login extends JFrame {
 			        }
 			}
 		});
-		btnLogin.setBounds(137, 183, 89, 23);
+		
+		btnLogin.setBounds(30, 98, 156, 23);
 		contentPane.add(btnLogin);
 	}
 }
