@@ -1,6 +1,8 @@
 package portal;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,6 +47,9 @@ public class AdminMain extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		JButton btnNewButton = new JButton("New User");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -59,7 +64,7 @@ public class AdminMain extends JFrame {
 		btnAddJob.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-                new AdminMain().setVisible(true);
+                new Admin_AddJob().setVisible(true);
 			}
 		});
 		btnAddJob.setBounds(10, 47, 125, 25);
@@ -69,11 +74,19 @@ public class AdminMain extends JFrame {
 		btnViewJobList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-                new AdminMain().setVisible(true);
+                new Admin_ViewJob().setVisible(true);
 			}
 		});
 		btnViewJobList.setBounds(10, 83, 125, 25);
 		contentPane.add(btnViewJobList);
+		
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnLogOut.setBounds(235, 127, 89, 23);
+		contentPane.add(btnLogOut);
 	}
 
 }

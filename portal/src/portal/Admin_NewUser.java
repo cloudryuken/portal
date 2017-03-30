@@ -1,6 +1,8 @@
 package portal;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -56,6 +58,9 @@ public class Admin_NewUser extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		JButton btnNewButton = new JButton("BACK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,17 +101,18 @@ public class Admin_NewUser extends JFrame {
 		JButton btnAdd = new JButton("Add User");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String username = tfUsername.getText();
-				String password = tfPass.getText();
-				String phone_number = tfPhone.getText();
-				String sql = "INSERT INTO `s_users` (`id`, `username`, `password`, `phone_number`)"
-						+ " VALUES (NULL," + username + password + phone_number + ");";
+				String username = "'" + tfUsername.getText() + "'";
+				String password = "'" + tfPass.getText() + "'";
+				String phone_number = "'" + tfPhone.getText() + "'";
+				String sql = "INSERT INTO s_users " + "VALUES (NULL, " + username + ", " + password + ", " + phone_number + ");";
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/multiutility", "root", "");
 					Statement stmt = con.createStatement();
-					stmt.executeQuery(sql);
+					stmt.executeUpdate(sql);
 					
+					dispose();
+                    new AdminMain().setVisible(true);					
 				} catch (Exception e1){
 					JOptionPane.showInputDialog(this, e1.getMessage());
 				}

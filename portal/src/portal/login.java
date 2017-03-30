@@ -97,7 +97,6 @@ public class login extends JFrame {
 			                            dispose();
 			                            new AdminMain().setVisible(true);
 
-
 			                } else if ((user.equals(uname)) != (pwd.equals(password))) {
 			                    String st = "User sau parola incorecta!";
 			                    JOptionPane.showMessageDialog(null, st);
