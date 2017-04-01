@@ -51,6 +51,7 @@ public class Admin_ViewJob extends JFrame {
 	 * Create the application.
 	 */
 	public Admin_ViewJob() {
+		setTitle("Portal [View Jobs]");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 470);

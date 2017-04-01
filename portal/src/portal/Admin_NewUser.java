@@ -19,11 +19,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Admin_NewUser extends JFrame {
-
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3306427556678755325L;
 	private JPanel contentPane;
 	private JTextField tfUsername;
 	private JTextField tfPass;
