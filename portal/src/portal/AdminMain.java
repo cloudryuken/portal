@@ -83,6 +83,8 @@ public class AdminMain extends JFrame {
 		JButton btnLogOut = new JButton("Log Out");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+                new login().setVisible(true);
 			}
 		});
 		btnLogOut.setBounds(235, 127, 89, 23);
