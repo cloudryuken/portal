@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class Admin_ViewJob extends JFrame {
 
@@ -27,6 +28,8 @@ public class Admin_ViewJob extends JFrame {
 	private static final long serialVersionUID = -6957112857051538961L;
 	private JPanel contentPane;
 	private JTable table;
+	private JScrollPane scrollPane;
+	private JTable table_header;
 
 	/**
 	 * Launch the application.
@@ -50,26 +53,16 @@ public class Admin_ViewJob extends JFrame {
 	public Admin_ViewJob() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 506, 550);
+		setBounds(100, 100, 600, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
-		JButton btnNewButton = new JButton("BACK");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new AdminMain().setVisible(true);
-			}
-		});
-		btnNewButton.setBounds(10, 487, 89, 23);
-		contentPane.add(btnNewButton);
+		contentPane.setLayout(null);
 		
-		table = new JTable();
 		DefaultTableModel model = new DefaultTableModel(new String[] 
 				{"User", "Contractor", "Job Type", "City", "Street", "Date", "Hour Start", "Hour End"}, 0);
 		String sql = "Select * From l_jobs";
@@ -93,33 +86,27 @@ public class Admin_ViewJob extends JFrame {
 		} catch (Exception e) {
 			JOptionPane.showInputDialog(this, e.getMessage());
 		}
-		table.setModel(model);
-        
 		
-		/**table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"User", "Contractor", "Job Type", "City", "Street", "Date", "Hour Start", "Hour End"
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 574, 377);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(model);
+		
+		table_header = new JTable();
+		table_header.setModel(model);
+		scrollPane.setColumnHeaderView(table_header);
+		
+		JButton btnBack = new JButton("BACK");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new AdminMain().setVisible(true);
 			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});**/
-		table.setBounds(10, 11, 417, 370);
-		contentPane.add(table);
+		});
+		btnBack.setBounds(494, 399, 90, 25);
+		contentPane.add(btnBack);
 	}
 }
