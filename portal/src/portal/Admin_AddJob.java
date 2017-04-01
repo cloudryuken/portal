@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -132,20 +134,28 @@ public class Admin_AddJob extends JFrame {
 		tfStreet.setBounds(100, 157, 184, 25);
 		contentPane.add(tfStreet);
 		
+		tfHourEnd = new JTextField();
+		tfHourEnd.setColumns(10);
+		tfHourEnd.setBounds(100, 266, 184, 25);
+		contentPane.add(tfHourEnd);
+		
+		String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+		String dateStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+		
 		tfDate = new JTextField();
+		tfDate.setEditable(false);
+		tfDate.setText(dateStamp);
 		tfDate.setColumns(10);
 		tfDate.setBounds(100, 193, 184, 25);
 		contentPane.add(tfDate);
 		
 		tfHourStart = new JTextField();
+		tfHourStart.setEditable(false);
+		tfHourStart.setVisible(false);
+		tfHourStart.setText(timeStamp);
 		tfHourStart.setColumns(10);
 		tfHourStart.setBounds(100, 229, 184, 25);
 		contentPane.add(tfHourStart);
-		
-		tfHourEnd = new JTextField();
-		tfHourEnd.setColumns(10);
-		tfHourEnd.setBounds(100, 266, 184, 25);
-		contentPane.add(tfHourEnd);
 		
 		JButton btnAddJob = new JButton("Add Job");
 		btnAddJob.addActionListener(new ActionListener() {
@@ -155,11 +165,11 @@ public class Admin_AddJob extends JFrame {
 				String job_type = "'" + tfJobType.getText() + "'";
 				String city = "'" + tfCity.getText() + "'";
 				String street = "'" + tfStreet.getText() + "'";
-				String date = "'" + tfDate.getText() + "'";
-				String hour_start = "'" + tfHourStart.getText() + "'";
+				String date = "'" + dateStamp + "'";
+				String hour_start = "'" + timeStamp + "'";
 				String hour_end = "'" + tfHourEnd.getText() + "'";
-				String sql = "INSERT INTO l_jobs " + "VALUES (NULL, NULL, " + user + ", " + contractor + ", " + job_type + ", " + city  + ", "
-						+ street + ", " + date + ", " + hour_start + ", " + hour_end + ");";
+				String sql = "INSERT INTO l_jobs " + "VALUES (NULL, NULL, " + user + ", " + contractor + ", " + city + ", " + street  + ", "
+						+ job_type + ", " + hour_start + ", " + hour_end + ", " + date + ");";
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/multiutility", "root", "");
