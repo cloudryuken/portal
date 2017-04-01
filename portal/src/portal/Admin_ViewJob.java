@@ -5,20 +5,26 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Admin_ViewJob extends JFrame {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6957112857051538961L;
 	private JPanel contentPane;
 	private JTable table;
 
@@ -64,15 +70,44 @@ public class Admin_ViewJob extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		DefaultTableModel model = new DefaultTableModel(new String[] 
+				{"User", "Contractor", "Job Type", "City", "Street", "Date", "Hour Start", "Hour End"}, 0);
+		String sql = "Select * From l_jobs";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/multiutility", "root", "");
+	        Statement stmt = con.createStatement();
+	        ResultSet rs = stmt.executeQuery(sql);
+	        while(rs.next())
+			{
+				String f = rs.getString("user"); 
+				String g = rs.getString("contractor");
+				String h = rs.getString("job_type");
+				String i = rs.getString("city");
+				String j = rs.getString("street");
+				String k = rs.getString("date");
+				String l = rs.getString("hour_start");
+				String m = rs.getString("hour_end");
+				model.addRow(new Object[]{f, g, h, i, j, k, l, m});
+			}
+		} catch (Exception e) {
+			JOptionPane.showInputDialog(this, e.getMessage());
+		}
+		table.setModel(model);
+        
+		
+		/**table.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"User", "Contractor", "Job Type", "City", "Street", "Date", "Hour Start", "Hour End"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Object.class, String.class, String.class, String.class, Object.class, String.class, String.class, String.class
+				String.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -83,7 +118,7 @@ public class Admin_ViewJob extends JFrame {
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
+		});**/
 		table.setBounds(10, 11, 417, 370);
 		contentPane.add(table);
 	}
