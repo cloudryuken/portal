@@ -151,7 +151,7 @@ public class Admin_AddJob extends JFrame {
 		
 		tfHourStart = new JTextField();
 		tfHourStart.setEditable(false);
-		tfHourStart.setVisible(false);
+		tfHourStart.setVisible(true);
 		tfHourStart.setText(timeStamp);
 		tfHourStart.setColumns(10);
 		tfHourStart.setBounds(100, 229, 184, 25);
